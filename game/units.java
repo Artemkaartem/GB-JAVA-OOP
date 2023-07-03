@@ -1,5 +1,6 @@
 package game;
 
+
 public class units {
     
     public int health;
@@ -30,4 +31,13 @@ public class units {
         else return false;
     }
 
+
+    String getInfo(){
+        return  this.name;
+    }
+
+    
+    public void step() {
+
+    }
 }

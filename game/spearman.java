@@ -6,5 +6,7 @@ public class spearman extends units  {
         super(100, 5, 30, 0, 30, "spearman", 7);
         
     }
-    
+    public spearman(String name) {
+        super(100, 5, 30, 0, 30, name, 7);
+    }
 }

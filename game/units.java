@@ -1,7 +1,9 @@
 package game;
 
 
-public class units {
+import java.util.ArrayList;
+
+public abstract class units {
     
     public int health;
     public int actionPoints;
@@ -12,7 +14,9 @@ public class units {
     public String name;
     public int initiave;
 
-    public units(int health, int actionPoints, int defense, int mana,int demege, String name, int initiave) {
+    Coordinates coordinates;
+
+    public units(int health, int actionPoints, int defense, int mana,int demege, String name, int initiave, int x, int y) {
         this.health = health;
         this.actionPoints = actionPoints;
         this.defense = defense;
@@ -21,6 +25,7 @@ public class units {
         this.demege = demege;
         this.name = name;
         this.initiave = initiave;
+        coordinates = new Coordinates(x, y);
     }
 
 
@@ -36,8 +41,18 @@ public class units {
         return  this.name;
     }
 
-    
-    public void step() {
-
+    public units nearest(ArrayList<units> units) {
+        double nearestDistance = Double.MAX_VALUE;
+        units nearestEnemy = null;
+        for (int i = 0; i < units.size(); i++) {
+            if(coordinates.countDistance(units.get(i).coordinates) < nearestDistance) {
+                nearestEnemy = units.get(i);
+                nearestDistance = coordinates.countDistance(units.get(i).coordinates);
+            }
+        }
+        return nearestEnemy;
     }
+
+
+    public abstract void step(ArrayList<units> units);
 }

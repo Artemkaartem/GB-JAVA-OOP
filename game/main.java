@@ -23,13 +23,13 @@ public class main {
         for(int i = 0; i < 10; i++) {
             int val = new Random().nextInt(7);
             switch (val) {
-                case 0 -> list.add(new crossbowman(0, val+1));
-                case 1 -> list.add(new monk(0, val+1));
-                case 2 -> list.add(new peasant(0, val+1));
-                case 3 -> list.add(new rogue(0, val+1));
-                case 4 -> list.add(new wizard(0, val+1));
-                case 5 -> list.add(new sniper(0, val+1));
-                case 6 -> list.add(new spearman(0, val+1));
+                case 0 -> list.add(new crossbowman(num.crossbowman.getName(),0, val+1));
+                case 1 -> list.add(new monk(num.monk.getName(),0, val+1));
+                case 2 -> list.add(new peasant(num.peasant.getName(),0, val+1));
+                case 3 -> list.add(new rogue(num.rogue.getName(),0, val+1));
+                case 4 -> list.add(new wizard(num.wizard.getName(),0, val+1));
+                case 5 -> list.add(new sniper(num.sniper.getName(),0, val+1));
+                case 6 -> list.add(new spearman(num.spearman.getName(),0, val+1));
             }
         }
             for(int i = 0; i < list.size(); i++){
@@ -70,7 +70,27 @@ public class main {
         System.out.println("------------");
         list.forEach(n -> n.step(team));
 
+        System.out.println("------------");
 
+        System.out.println("Team1: ");
+        list.forEach(n-> System.out.println(n.getInfo()));
 
+        System.out.println("------------");
+
+        System.out.println("Team2: ");
+        team.forEach(n-> System.out.println(n.getInfo()));
+
+        list.forEach(n-> n.step(team, list));
+        team.forEach(n-> n.step(list, team));
+
+        System.out.println("------------");
+
+        System.out.println("Team1 урон: ");
+        list.forEach(n-> System.out.println(n.getInfo() + " " + new Random().nextInt(n.demege)));
+
+        System.out.println("------------");
+
+        System.out.println("Team2 урон: ");
+        team.forEach(n-> System.out.println(n.getInfo() + " " + new Random().nextInt(n.demege)));
     }
 }

@@ -14,6 +14,8 @@ public abstract class units {
     public String name;
     public int initiave;
 
+    public int max_health;
+
     Coordinates coordinates;
 
     public units(int health, int actionPoints, int defense, int mana,int demege, String name, int initiave, int x, int y) {
@@ -26,6 +28,7 @@ public abstract class units {
         this.name = name;
         this.initiave = initiave;
         coordinates = new Coordinates(x, y);
+        this.max_health = max_health;
     }
 
 
@@ -55,4 +58,12 @@ public abstract class units {
 
 
     public abstract void step(ArrayList<units> units);
+
+    public void HP_demege(int damage) {
+        health -= damage;
+        if (health < 0) health = 0;
+        if (health > max_health) health = max_health;
+    }
+
+    public abstract void step(ArrayList<units> units, ArrayList<units> list);
 }

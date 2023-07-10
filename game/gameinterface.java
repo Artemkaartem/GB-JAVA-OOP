@@ -6,3 +6,5 @@ public interface gameinterface {
     void step(ArrayList<units> units);
     String getInfo();
 }
+
+

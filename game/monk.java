@@ -24,4 +24,9 @@ public class monk extends units {
         units tmp = nearest(units);
         System.out.println(tmp.name + " " + coordinates.countDistance(tmp.coordinates));
     }
+
+    @Override
+    public void step(ArrayList<units> units, ArrayList<units> list) {
+        units tmp = nearest(units);
+    }
 }

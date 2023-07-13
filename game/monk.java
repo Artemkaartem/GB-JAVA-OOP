@@ -12,7 +12,6 @@ public class monk extends units {
         super(100, 5, 30, 70, 30, name, 7, x, y);
     }
 
-
     @Override
     String getInfo() {
         return super.getInfo();

@@ -14,7 +14,7 @@ public class wizard extends units {
 
 
     @Override
-    String getInfo() {
+    public String getInfo() {
         return super.getInfo();
     }
 

@@ -28,7 +28,6 @@ public abstract class shooter extends units {
         arrows -= 1;
         return;
     }
-
     @Override
     public String getInfo() {
         return String.format("name:%s hp:%d arrows:%d", name, health, arrows);

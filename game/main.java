@@ -5,6 +5,11 @@ import java.util.Random;
 
 
 public class main {
+
+   public static ArrayList<units> list = new ArrayList<>();
+    public static ArrayList<units> team = new ArrayList<>();
+   public static ArrayList<units> allTeam = new ArrayList<>();
+
     public static void main(String[] args) {
         ArrayList<units> units = new ArrayList<>();
 
@@ -92,5 +97,7 @@ public class main {
 
         System.out.println("Team2 урон: ");
         team.forEach(n-> System.out.println(n.getInfo() + " " + new Random().nextInt(n.demege)));
+
+
     }
 }

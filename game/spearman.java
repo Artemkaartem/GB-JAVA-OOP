@@ -13,7 +13,7 @@ public class spearman extends units  {
     }
 
     @Override
-    String getInfo() {return super.getInfo();}
+    public String getInfo() {return super.getInfo();}
 
     @Override
     public void step(ArrayList<units> units) {

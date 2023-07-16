@@ -2,12 +2,14 @@ package game;
 
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class units {
 
-    public static int getHp;
+
+
     public String state;
-    public int health;
+    public  int health;
     public int actionPoints;
     public int defense;
     public int mana;
@@ -59,8 +61,6 @@ public abstract class units {
     }
 
 
-    public abstract void step(ArrayList<units> units);
-
     public  void HP_demege(int damage) {
         health -= damage;
         if (health < 1) {
@@ -70,13 +70,39 @@ public abstract class units {
         if (health > max_health) health = max_health;
     }
 
+    public abstract void step(ArrayList<units> units);
+
     public abstract void step(ArrayList<units> units, ArrayList<units> list);
-    public  ArrayList<Integer> getCoord() {
+    public  ArrayList<Integer> getCoords() {
+
         return coordinates.xy;
     }
 
-    public static double[] getCoords() {
-        ArrayList<Double> doub = new ArrayList<>();
-        return getCoords();
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + ": " + name + ", hp: " + health;
     }
+
+    public int compareTo(Object o) {
+        units unit = (units) o;
+        return unit.initiave - this.initiave;
+    }
+
+
+    public void attack(units target, int damage, int maxDamage) {
+        int causedDamage;
+        if (damage < target.defense) causedDamage = damage;
+        else {
+            switch (new Random().nextInt(4)) {
+                case 0:
+                    causedDamage = maxDamage;
+                    break;
+                default:
+                    causedDamage = damage;
+                    break;
+            }
+        }
+        target.HP_demege(causedDamage);
+    }
+
 }

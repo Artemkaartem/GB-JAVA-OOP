@@ -1,31 +1,17 @@
 package game;
 
-import java.util.ArrayList;
+public class wizard extends human {
 
-public class wizard extends units {
-
-    public wizard(int x, int y) {
-        super(100, 5, 30, 70, 30, "wizard", 7, x, y);
-        
+    public wizard(int x, int y, int initiative, int actionPriority) {
+        super(x, y, initiative + 2, 100, 10, 3, actionPriority);
     }
-    public wizard(String name, int x, int y ) {
-        super(100, 5, 30, 70, 30, name, 7, x, y);
-    }
-
-
     @Override
     public String getInfo() {
-        return super.getInfo();
+        return getName() +" [" + coordinates.x + ", " + coordinates.y + "] mana: " + manaPoints + "/" + 10 + " HP: " + currentHealth + "/" + health + " " + state;
     }
 
     @Override
-    public void step(ArrayList<units> units) {
-        units tmp = nearest(units);
-        System.out.println(tmp.name + " " + coordinates.countDistance(tmp.coordinates));
-    }
-
-    @Override
-    public void step(ArrayList<units> units, ArrayList<units> list) {
-        units tmp = nearest(units);
+    String getName() {
+        return num.wizard.getName();
     }
 }

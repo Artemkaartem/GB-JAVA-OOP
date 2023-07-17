@@ -27,8 +27,8 @@ private static int step = 1;
     private static String getChar(int x, int y){
         String out = "| ";
         for (units human: main.allTeam) {
-            if (human.getCoords().get(0) == x && human.getCoords().get(1) == y){
-                if (human.getHp()== 0) {
+            if (human.coordinates.x == x && human.coordinates.y == y){
+                if (!human.isAlive) {
                     out = "|" + (AnsiColors.ANSI_RED + human.toString().charAt(0) + AnsiColors.ANSI_RESET);
                     break;
                 }

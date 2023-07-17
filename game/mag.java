@@ -4,44 +4,33 @@ import java.util.ArrayList;
 
 public abstract class mag extends  units{
 
-    int spells;
-    int maxDamage;
-    public mag(int health, int actionPoints, int defense, int mana, int demege, String name, int initiave, int x, int y) {
-        super(health, actionPoints, defense, mana, demege, name, initiave, x, y);
-        this.spells = spells;
-        this.maxDamage =maxDamage;
-    }
-/*
-    @Override
-    public void step(ArrayList<units> units, ArrayList<units> list) {
-        if (!state.equals("dead")) {
-            float min_XP = Integer.MAX_VALUE;
-            int index = 0;
-            for (int i = 0; i < list.size(); i++) {
-                if ((float) (list.get(i).health / max_health) < min_XP) {
-                    min_XP = (float) (list.get(i).health / max_health);
-                    index = i;
-                }
-            }
-            list.get(index).HP_demege(this.demege);
-        }
-    }*/
 
+    public int attacksAmount;
+    public int attackRange;
+
+    public mag(int x, int y, int initiative, int damage, int moveDistance, int attacksAmount, int attackRange) {
+        super(x, y, 100, 100, damage, moveDistance, initiative, true);
+
+        this.attacksAmount = attacksAmount;
+        this.attackRange = attackRange;
+    }
 
     @Override
-    public void step(ArrayList<units> units, ArrayList<units> list) {
-        if (this.spells > 0 && this.health > 0) {
-            for (units unit : list) {
-                if (unit.health > 0 && unit.health < unit.max_health) {
-                    this.attack(unit, this.demege, this.maxDamage);
-                    if (unit.health > unit.max_health) {
-                        unit.health = unit.max_health;
-                    }
-                    break;
-                }
-            }
-            this.spells--;
+    public void step(ArrayList<units> team, ArrayList<units> list) {
+        if (!isAlive) return;
+
+        units tmp = findClosestEnemy(team);
+
+        if (coordinates.countDistance(tmp.coordinates) <= attackRange) {
+            for (int i = 0; i < attacksAmount; i++) tmp.getDamage(damage);
+            state = "Attack";
+        } else {
+            move(tmp.coordinates, list);
+            state = "Moving";
         }
 
+
     }
+
+    abstract String getInfo();
 }

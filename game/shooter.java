@@ -3,33 +3,53 @@ package game;
 import java.util.ArrayList;
 
 public abstract class shooter extends units {
-    protected int arrows = 50;
-    public shooter(int health, int actionPoints, int defense, int mana, int demege, String name, int initiave, int x, int y) {
-        super(health, actionPoints, defense, mana, demege, name, initiave, x, y);
+    public int attackRange;
+    public int ammoAmount;
+    public int timeToLoad;
+
+    public shooter(int x,int y, int initiative, int attackRange, int ammoAmount, int timeToLoad) {
+        super(x, y, 50, 50, 5, 1, initiative, true);
+
+        this.attackRange = attackRange;
+        this.ammoAmount = ammoAmount;
+        this.timeToLoad = timeToLoad;
     }
 
     @Override
-    public void step(ArrayList<units> units, ArrayList<units> list) {
-// Если жизни 0 вернуть управление
-        if (this.health == 0 || this.arrows == 0) return;
-        // Если стрел 0 вернуть управление
-        // Найти ближайшего противника
-        units tmp = nearest(units);
-        // Нанести ему среднее повреждение
+    public void step(ArrayList<units> team, ArrayList<units> list) {
 
-        for (units unit:list) {
-            if (unit.name.equals("Human")) {
-                arrows++;
-                break;
+
+        units tmp = findClosestEnemy(list);
+
+        if (isAlive) {
+            for (units unit: list) {
+                if (unit instanceof peasant && unit.state == "Stand" && ammoAmount < 20 && this instanceof crossbowman) {
+                    ammoAmount += 1;
+                    unit.state = "Busy";
+                    return;
+                }
+            }
+
+            if ((int)coordinates.countDistance(tmp.coordinates) <= attackRange) {
+                if (ammoAmount > 0 && attackRange != 1) {
+                    if (attackRange == 1) tmp.getDamage(1);
+                    else tmp.getDamage(damage);
+                    ammoAmount -= 1;
+                    state = "Attack";
+                    return;
+                } else {
+                    attackRange = 1;
+                    state = "->Melee";
+                }
+            } else {
+                move(tmp.coordinates, list);
+                state = "Moving";
+                return;
             }
         }
-        tmp.HP_demege(this.demege);
-        // уменьшить кол-во стрел на одну и вернуть управление
-        arrows -= 1;
+
         return;
     }
-    @Override
-    public String getInfo() {
-        return String.format("name:%s hp:%d arrows:%d", name, health, arrows);
-    }
+
+    public abstract String getInfo();
 }

@@ -2,32 +2,27 @@ package game;
 
 import java.util.ArrayList;
 
-public  class peasant extends units {
+public  class peasant extends human {
 
-    public peasant(int x, int y) {
-        super(100, 5, 25, 0, 30, "peasant", 7, x, y);
-        
-    }
-    public peasant(String name, int x, int y) {
-        super(100, 5, 25, 0, 30, name, 7, x ,y);
+    public peasant(int x, int y, int initiative, int actionPriority) {
+        super(x, y, initiative, 0, 0, 1, actionPriority);
     }
 
     @Override
     public String getInfo() {
-        return super.getInfo();
+        return getName() + " [" + coordinates.x + ", " + coordinates.y + "] HP:" + currentHealth + "/" + health + " " + state;
+    }
+    @Override
+    public void step(ArrayList<units> team, ArrayList<units> list) {
+        if (isAlive) {
+            if (state == "Busy") {
+                state = "Stand";
+            }
+        }
     }
 
     @Override
-    public void step(ArrayList<units> units) {
-        units tmp = nearest(units);
-        System.out.println(tmp.name + " " + coordinates.countDistance(tmp.coordinates));
+    String getName() {
+        return num.peasant.getName();
     }
-
-    @Override
-    public void step(ArrayList<units> units, ArrayList<units> list) {
-        units tmp = nearest(units);
-    }
-
-
-
 }
